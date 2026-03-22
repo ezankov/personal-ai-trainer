@@ -104,21 +104,24 @@ export class OnboardingComponent {
   loading = signal(false);
   error = signal('');
 
-  profileForm = this.fb.group({
-    sportType: ['RUNNING'],
-    experienceLevel: ['BEGINNER'],
-    weeklyVolumeKm: [20],
-    maxTrainingDaysPerWeek: [4],
-    availableDays: ['MON,WED,FRI,SUN']
-  });
+  profileForm: ReturnType<FormBuilder['group']>;
+  goalForm: ReturnType<FormBuilder['group']>;
 
-  goalForm = this.fb.group({
-    raceType: ['HALF_MARATHON'],
-    raceDate: ['', Validators.required],
-    raceName: ['']
-  });
+  constructor(private fb: FormBuilder, private planService: PlanService, private router: Router) {
+    this.profileForm = this.fb.group({
+      sportType: ['RUNNING'],
+      experienceLevel: ['BEGINNER'],
+      weeklyVolumeKm: [20],
+      maxTrainingDaysPerWeek: [4],
+      availableDays: ['MON,WED,FRI,SUN']
+    });
 
-  constructor(private fb: FormBuilder, private planService: PlanService, private router: Router) {}
+    this.goalForm = this.fb.group({
+      raceType: ['HALF_MARATHON'],
+      raceDate: ['', Validators.required],
+      raceName: ['']
+    });
+  }
 
   nextStep() {
     if (this.step() === 1) {

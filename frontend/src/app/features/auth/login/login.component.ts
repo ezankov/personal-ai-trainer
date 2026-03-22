@@ -46,14 +46,16 @@ import { CommonModule } from '@angular/common';
   `]
 })
 export class LoginComponent {
-  form = this.fb.group({
-    email: ['', [Validators.required, Validators.email]],
-    password: ['', Validators.required]
-  });
+  form: ReturnType<FormBuilder['group']>;
   loading = false;
   error = '';
 
-  constructor(private fb: FormBuilder, private auth: AuthService, private router: Router) {}
+  constructor(private fb: FormBuilder, private auth: AuthService, private router: Router) {
+    this.form = this.fb.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', Validators.required]
+    });
+  }
 
   submit() {
     if (this.form.invalid) return;

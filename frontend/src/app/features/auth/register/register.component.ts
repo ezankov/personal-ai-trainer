@@ -49,15 +49,17 @@ import { AuthService } from '../../../core/services/auth.service';
   `]
 })
 export class RegisterComponent {
-  form = this.fb.group({
-    name: ['', Validators.required],
-    email: ['', [Validators.required, Validators.email]],
-    password: ['', [Validators.required, Validators.minLength(8)]]
-  });
+  form: ReturnType<FormBuilder['group']>;
   loading = false;
   error = '';
 
-  constructor(private fb: FormBuilder, private auth: AuthService, private router: Router) {}
+  constructor(private fb: FormBuilder, private auth: AuthService, private router: Router) {
+    this.form = this.fb.group({
+      name: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(8)]]
+    });
+  }
 
   submit() {
     if (this.form.invalid) return;

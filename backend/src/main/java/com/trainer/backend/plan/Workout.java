@@ -1,5 +1,6 @@
 package com.trainer.backend.plan;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -22,10 +23,12 @@ public class Workout {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "week_id", nullable = false)
     private TrainingWeek week;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "plan_id", nullable = false)
     private TrainingPlan plan;
@@ -52,6 +55,7 @@ public class Workout {
     @Column(columnDefinition = "TEXT")
     private String aiExplanation;
 
+    @Builder.Default
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private WorkoutStatus status = WorkoutStatus.SCHEDULED;

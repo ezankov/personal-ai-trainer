@@ -16,6 +16,7 @@ public class AthleteProfileService {
     private final AthleteProfileRepository profileRepository;
     private final UserRepository userRepository;
 
+    @Transactional
     public AthleteProfile getOrCreate(UUID userId) {
         return profileRepository.findByUserId(userId).orElseGet(() -> {
             User user = userRepository.findById(userId)

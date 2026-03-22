@@ -3,10 +3,12 @@ package com.trainer.backend.athlete;
 import com.trainer.backend.common.ApiResponse;
 import com.trainer.backend.user.User;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+@Slf4j
 @RestController
 @RequestMapping("/api/profile")
 @RequiredArgsConstructor
@@ -16,13 +18,16 @@ public class AthleteProfileController {
 
     @GetMapping
     public ResponseEntity<ApiResponse<AthleteProfile>> get(@AuthenticationPrincipal User user) {
+        log.info("GET Athlete profile for userId={}", user.getId());
         return ResponseEntity.ok(ApiResponse.ok(profileService.getOrCreate(user.getId())));
     }
-
+    
+    
     @PutMapping
     public ResponseEntity<ApiResponse<AthleteProfile>> update(
             @AuthenticationPrincipal User user,
             @RequestBody AthleteProfile updates) {
+        log.info("PUT Updating athlete profile for userId={}", user.getId());
         return ResponseEntity.ok(ApiResponse.ok(profileService.update(user.getId(), updates)));
     }
 }

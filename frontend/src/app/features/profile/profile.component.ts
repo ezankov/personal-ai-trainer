@@ -79,20 +79,22 @@ import { PlanService } from '../../core/services/plan.service';
   `]
 })
 export class ProfileComponent implements OnInit {
-  form = this.fb.group({
-    sportType: ['RUNNING'],
-    experienceLevel: ['BEGINNER'],
-    weeklyVolumeKm: [null],
-    maxTrainingDaysPerWeek: [4],
-    availableDays: [''],
-    thresholdPaceSecPerKm: [null],
-    ftpWatts: [null],
-    notes: ['']
-  });
+  form: ReturnType<FormBuilder['group']>;
   loading = signal(false);
   saved = signal(false);
 
-  constructor(private fb: FormBuilder, private planService: PlanService) {}
+  constructor(private fb: FormBuilder, private planService: PlanService) {
+    this.form = this.fb.group({
+      sportType: ['RUNNING'],
+      experienceLevel: ['BEGINNER'],
+      weeklyVolumeKm: [null],
+      maxTrainingDaysPerWeek: [4],
+      availableDays: [''],
+      thresholdPaceSecPerKm: [null],
+      ftpWatts: [null],
+      notes: ['']
+    });
+  }
 
   ngOnInit() {
     this.planService.getProfile().subscribe({

@@ -1,5 +1,6 @@
 package com.trainer.backend.plan;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.trainer.backend.goal.RaceGoal;
 import com.trainer.backend.user.User;
 import jakarta.persistence.*;
@@ -26,10 +27,12 @@ public class TrainingPlan {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "goal_id")
     private RaceGoal goal;

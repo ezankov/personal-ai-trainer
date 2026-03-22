@@ -4,7 +4,7 @@ spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/personal_ai_trainer
     username: ${DB_USERNAME:postgres}
-    password: ${DB_PASSWORD:postgres123}
+    password: ${DB_PASSWORD:postgres}
   jpa:
     hibernate:
       ddl-auto: validate
