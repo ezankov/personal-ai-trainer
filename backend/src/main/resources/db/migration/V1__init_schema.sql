@@ -12,7 +12,7 @@ CREATE TABLE athlete_profiles (
     user_id UUID NOT NULL UNIQUE REFERENCES users(id) ON DELETE CASCADE,
     sport_type VARCHAR(50) NOT NULL DEFAULT 'RUNNING',
     experience_level VARCHAR(50) NOT NULL DEFAULT 'BEGINNER',
-    weekly_volume_km DECIMAL(6,2),
+    weekly_volume_km float8,
     max_training_days_per_week INT NOT NULL DEFAULT 4,
     preferred_long_run_day VARCHAR(20),
     available_days VARCHAR(100),
@@ -29,7 +29,7 @@ CREATE TABLE race_goals (
     race_date DATE NOT NULL,
     target_time_seconds INT,
     race_name VARCHAR(255),
-    is_active BOOLEAN NOT NULL DEFAULT true,
+    active BOOLEAN NOT NULL DEFAULT true,
     created_at TIMESTAMP NOT NULL DEFAULT now()
 );
 
@@ -53,8 +53,8 @@ CREATE TABLE training_weeks (
     start_date DATE NOT NULL,
     end_date DATE NOT NULL,
     focus VARCHAR(100),
-    total_volume_km DECIMAL(6,2),
-    is_recovery_week BOOLEAN NOT NULL DEFAULT false
+    total_volume_km float8,
+    recovery_week BOOLEAN NOT NULL DEFAULT false
 );
 
 CREATE TABLE workouts (
@@ -66,7 +66,7 @@ CREATE TABLE workouts (
     title VARCHAR(255) NOT NULL,
     description TEXT,
     duration_minutes INT,
-    distance_km DECIMAL(6,2),
+    distance_km float8,
     intensity VARCHAR(50),
     ai_explanation TEXT,
     status VARCHAR(50) NOT NULL DEFAULT 'SCHEDULED',
